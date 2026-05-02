@@ -9,8 +9,9 @@ st.set_page_config(page_title="Abdou Electric Calc", layout="centered")
 def save_data(wilaya, sockets, lamps, cost, extra, price):
     url = "https://docs.google.com/forms/d/e/1FAIpQLScqRucA9vRy51Vy6QEvKHJmNYNnauc0ES3pr3LGmOpVOvN4rw/formResponse"
     
+    # تحويل كل القيم لنصوص لضمان قبولها من قبل جوجل
     payload = {
-        "entry.2021402897": wilaya,
+        "entry.2021402897": str(wilaya),
         "entry.2023855562": str(sockets),
         "entry.528214977": str(lamps),
         "entry.1353071652": str(cost),
@@ -18,12 +19,17 @@ def save_data(wilaya, sockets, lamps, cost, extra, price):
         "entry.675027177": str(price)
     }
     
+    # إضافة الرؤوس لإيهام جوجل أن الإرسال قادم من متصفح
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+    
     try:
-        response = requests.post(url, data=payload)
+        # أضفنا الـ headers هنا
+        response = requests.post(url, data=payload, headers=headers)
         return response.ok
     except:
         return False
-
 # 3. واجهة المستخدم
 st.title("⚡ حاسبة كهرباء المنازل - Abdou")
 
