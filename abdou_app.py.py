@@ -46,7 +46,7 @@ def save_data():
     return requests.post(url, data=payload).status_code == 200
 
 # 7. التنفيذ والنتائج
-if st.button("🚀 إصدار التقرير وحفظ البيانات"):
+if st.button(" إصدار التقرير "):
     st.markdown("---")
     st.success(f"### إجمالي تكلفة اليد العاملة: {labor_cost:,} دج")
     
