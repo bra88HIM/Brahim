@@ -32,19 +32,27 @@ extra_items = st.text_input("📦 إضافات أخرى (سبوت لايت، ت�
 labor_cost = (total_l * p_lamp) + (total_s * p_socket) + (num_areas * p_socket) + p_tab
 
 # 6. دالة الحفظ السحرية (Google Form)
-def save_data():
+def send_to_google_form(wilaya, sockets, lamps, cost, extra, price):
     url = "https://docs.google.com/forms/d/e/1FAIpQLScqRucA9vRy51Vy6QEvKHJmNYNnauc0ES3pr3LGmOpVOvN4rw/formResponse"
-    # الـ IDs التي استخرجناها من الرابط المملوء مسبقاً
+    
     payload = {
-        "entry.2021402897": selected_wilaya,
-        "entry.2023855562": total_s,
-        "entry.528214977": total_l,
-        "entry.1353071652": labor_cost,
-        "entry.1960991695": extra_items,
-        "entry.675027177": p_socket
+        "entry.2021402897": wilaya,
+        "entry.2023855562": str(sockets),
+        "entry.528214977": str(lamps),
+        "entry.1353071652": str(cost),
+        "entry.1960991695": str(extra),
+        "entry.675027177": str(price)
     }
-    return requests.post(url, data=payload).status_code == 200
-
+    
+    try:
+        # أضفنا تحويل القيم إلى نصوص (str) لضمان قبولها
+        response = requests.post(url, data=payload)
+        if response.status_code != 200:
+            st.warning(f"تنبيه: كود الحالة هو {response.status_code}")
+        return response.ok
+    except Exception as e:
+        st.error(f"خطأ تقني: {e}")
+        return False
 # 7. التنفيذ والنتائج
 if st.button(" إصدار التقرير "):
     st.markdown("---")
