@@ -4,7 +4,7 @@ import requests
 # ─────────────────────────────────────────────
 # 1. إعدادات الصفحة
 # ─────────────────────────────────────────────
-st.set_page_config(page_title="Abdou Electric Calc", layout="centered")
+st.set_page_config(page_title="brahim Electric Calc", layout="centered")
 
 # ─────────────────────────────────────────────
 # 2. بيانات التدريب لحساب السلك (من جدول الكميات)
